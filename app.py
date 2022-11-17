@@ -10,7 +10,7 @@ load_dotenv()
 app = Flask(__name__)
 key = Fernet.generate_key()
 
-CORS(app, resources={"/*": {"origins": "*"}})
+CORS(app)
 
 host = environ.get('DB_HOST')
 database = environ.get('DB_NAME')
@@ -18,7 +18,6 @@ username = environ.get('DB_USER')
 password = environ.get('DB_PASSWORD')
 port = environ.get('DB_PORT')
 
-print(host, database, username, password, port)
 
 
 def get_db_connection():
