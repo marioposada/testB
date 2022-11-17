@@ -12,11 +12,11 @@ key = Fernet.generate_key()
 
 CORS(app)
 
-host = 'ec2-54-86-214-124.compute-1.amazonaws.com'
-database = 'd51pvhdhknn25'
-username = 'yttyaspsbhauao'
-password = '807072f62eff784473bfd9f6acba471dfee005e9c7214913ce8bd094236f5ba1'
-port = '5432'
+host = environ.get('DB_HOST')
+database = environ.get('DB_NAME')
+username = environ.get('DB_USER')
+password = environ.get('DB_PASSWORD')
+port = environ.get('DB_PORT')
 
 
 
