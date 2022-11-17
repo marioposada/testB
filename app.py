@@ -10,7 +10,7 @@ load_dotenv()
 app = Flask(__name__)
 key = Fernet.generate_key()
 
-CORS(app, resources={"/*": {"origins": "http://127.0.0.1:3001"}})
+CORS(app, resources={"/*": {"origins": "*"}})
 
 host = environ.get('DB_HOST')
 database = environ.get('DB_NAME')
@@ -105,8 +105,8 @@ def delete_user(id):
 
 @app.get('/')
 def home():
-    return send_file('static/index.html')
+    return jsonify({"status": "success"})
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=3001)
+    app.run()
