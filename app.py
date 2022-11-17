@@ -26,7 +26,7 @@ def get_db_connection():
     return conn
 
 
-@app.get('/api/users')
+@app.route('/api/users')
 def get_users():
     conn = get_db_connection()
     cur = conn.cursor(cursor_factory=extras.RealDictCursor)
@@ -37,7 +37,7 @@ def get_users():
     return jsonify(users)
 
 
-@app.post('/api/users')
+@app.route('/api/users')
 def create_user():
     new_user = request.get_json()
     username = new_user['username']
@@ -54,7 +54,7 @@ def create_user():
     return jsonify(new_user)
 
 
-@app.get('/api/users/<id>')
+@app.route('/api/users/<id>')
 def get_user(id):
     conn = get_db_connection()
     cur = conn.cursor(cursor_factory=extras.RealDictCursor)
@@ -69,7 +69,7 @@ def get_user(id):
     return jsonify(user)
 
 
-@app.put('/api/users/<id>')
+@app.route('/api/users/<id>')
 def update_user(id):
     conn = get_db_connection()
     cur = conn.cursor(cursor_factory=extras.RealDictCursor)
@@ -88,7 +88,7 @@ def update_user(id):
     return jsonify(updated_user)
 
 
-@app.delete('/api/users/<id>')
+@app.route('/api/users/<id>')
 def delete_user(id):
     conn = get_db_connection()
     cur = conn.cursor(cursor_factory=extras.RealDictCursor)
@@ -102,7 +102,7 @@ def delete_user(id):
     return jsonify(user)
 
 
-@app.get('/')
+@app.route('/')
 def home():
     return jsonify({"status": "success"})
 
