@@ -5,7 +5,7 @@ let editing = false;
 let userId = null;
 
 window.addEventListener("DOMContentLoaded", async () => {
-  const response = await fetch("/api/users");
+  const response = await fetch("https://flask2022mp.herokuapp.com/api/users");
   const data = await response.json();
   users = data;
   renderUser(users);
@@ -19,7 +19,7 @@ userForm.addEventListener("submit", async (e) => {
 
   if (!editing) {
     // send user to backend
-    const response = await fetch("/api/users", {
+    const response = await fetch("https://flask2022mp.herokuapp.com/api/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +35,7 @@ userForm.addEventListener("submit", async (e) => {
     users.push(data);
     renderUser(users);
   } else {
-    const response = await fetch(`/api/users/${userId}`, {
+    const response = await fetch(`https://flask2022mp.herokuapp.com/api/users/${userId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -82,7 +82,7 @@ function renderUser(users) {
     const btnDelete = userItem.querySelector(".btn-delete");
 
     btnDelete.addEventListener("click", async (e) => {
-      const response = await fetch(`/api/users/${user.id}`, {
+      const response = await fetch(`https://flask2022mp.herokuapp.com/api/users/${user.id}`, {
         method: "DELETE",
       });
 
@@ -98,7 +98,7 @@ function renderUser(users) {
     const btnEdit = userItem.querySelector(".btn-edit");
 
     btnEdit.addEventListener("click", async (e) => {
-      const response = await fetch(`/api/users/${user.id}`);
+      const response = await fetch(`https://flask2022mp.herokuapp.com/api/users/${user.id}`);
       const data = await response.json();
 
       userForm["username"].value = data.username;
