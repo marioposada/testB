@@ -12,11 +12,11 @@ key = Fernet.generate_key()
 
 CORS(app)
 
-host = environ.get('DB_HOST')
-database = environ.get('DB_NAME')
-username = environ.get('DB_USER')
-password = environ.get('DB_PASSWORD')
-port = environ.get('DB_PORT')
+host = environ['DB_HOST']
+database = environ['DB_NAME']
+username = environ['DB_USER']
+password = environ['DB_PASSWORD']
+port = environ['DB_PORT']
 
 
 
