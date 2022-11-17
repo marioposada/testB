@@ -104,8 +104,8 @@ def delete_user(id):
 
 @app.route('/')
 def home():
-    return jsonify({"status": "success"})
+    return send_file('index.html')
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
