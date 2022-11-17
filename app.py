@@ -1,5 +1,4 @@
 from flask import Flask, jsonify, request, send_file
-from flask_cors import CORS
 from psycopg2 import connect, extras
 from cryptography.fernet import Fernet
 from os import environ
@@ -10,13 +9,12 @@ load_dotenv()
 app = Flask(__name__)
 key = Fernet.generate_key()
 
-CORS(app)
 
-host = environ['DB_HOST']
-database = environ['DB_NAME']
-username = environ['DB_USER']
-password = environ['DB_PASSWORD']
-port = environ['DB_PORT']
+host = environ.get('DB_HOST')
+database = environ.get('DB_NAME')
+username = environ.get('DB_USER')
+password = environ.get('DB_PASSWORD')
+port = environ.get('DB_PORT')
 
 
 
@@ -26,7 +24,7 @@ def get_db_connection():
     return conn
 
 
-@app.route('/api/users')
+@app.get('/api/users')
 def get_users():
     conn = get_db_connection()
     cur = conn.cursor(cursor_factory=extras.RealDictCursor)
@@ -37,7 +35,7 @@ def get_users():
     return jsonify(users)
 
 
-@app.route('/api/users')
+@app.post('/api/users')
 def create_user():
     new_user = request.get_json()
     username = new_user['username']
@@ -54,7 +52,7 @@ def create_user():
     return jsonify(new_user)
 
 
-@app.route('/api/users/<id>')
+@app.get('/api/users/<id>')
 def get_user(id):
     conn = get_db_connection()
     cur = conn.cursor(cursor_factory=extras.RealDictCursor)
@@ -69,7 +67,7 @@ def get_user(id):
     return jsonify(user)
 
 
-@app.route('/api/users/<id>')
+@app.put('/api/users/<id>')
 def update_user(id):
     conn = get_db_connection()
     cur = conn.cursor(cursor_factory=extras.RealDictCursor)
@@ -88,7 +86,7 @@ def update_user(id):
     return jsonify(updated_user)
 
 
-@app.route('/api/users/<id>')
+@app.delete('/api/users/<id>')
 def delete_user(id):
     conn = get_db_connection()
     cur = conn.cursor(cursor_factory=extras.RealDictCursor)
@@ -102,10 +100,10 @@ def delete_user(id):
     return jsonify(user)
 
 
-@app.route('/')
+@app.get('/')
 def home():
-    return send_file('index.html')
+    return send_file('static/index.html')
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=3000)
